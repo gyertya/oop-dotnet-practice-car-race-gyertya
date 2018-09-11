@@ -12,6 +12,7 @@ free to add more methods/variables.  But you must implement the ones
 described here!
 
 #+BEGIN_SRC java
+
   Race
    createVehicles() // creates 10 cars, 10 trucks and 10 motorcycles.
    simulateRace() // simulates the race by
@@ -43,7 +44,9 @@ described here!
    breakdownTurnsLeft // holds how long its still broken down.
    distanceTraveled
    moveForAnHour(Race race)
+   
 #+END_SRC
+
 * Hints
 - Have you noticed that Car, Motorcycle and Truck share some similarities?
   Use inheritance to abstract away common parts.
