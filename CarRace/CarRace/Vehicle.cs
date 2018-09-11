@@ -20,5 +20,14 @@ namespace CarRace
         /// </summary>
         public int DistanceTravelled { get; set; } = 0;
 
+        /// <summary>
+        /// <para>Tha car's name : a list from the words here: http://www.fantasynamegenerators.com/car-names.php and pick 2 randomly for each instance.</para>
+        /// </summary>
+        public string Name { get; set; }
+
+        public void StateToString()
+        {
+            Console.WriteLine($"{Name}'s total distance: {DistanceTravelled}");
+        }
     }
 }

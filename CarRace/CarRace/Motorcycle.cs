@@ -8,14 +8,18 @@ namespace CarRace
 {
     class Motorcycle : Vehicle
     {
-        /// <summary>
-        /// <para>The motorcycle's names are called "Motorcycle 1", "Motorcycle 2", "Motorcycle 3",... Unique.</para>
-        /// </summary>
-        public string Name { get; set; }
+        private static int nameCount { get; set; } = 1;
 
         public Motorcycle()
         {
-            NormalSpeed = (Weather.isRaining) ? 100 - Race.rnd.Next(5,50) : 100;
+            NormalSpeed = (Weather.isRaining) ? 100 - Race.rnd.Next(5, 50) : 100;
+            Name = "Motorcycle " + nameCount.ToString();
+            nameCount++;
+        }
+
+        public void MoveForAnHour(Race race)
+        {
+            DistanceTravelled += NormalSpeed;
         }
     }
 }

@@ -9,35 +9,30 @@ namespace CarRace
 {
     class Car : Vehicle
     {
-        /// <summary>
-        /// <para>Tha car's name : a list from the words here: http://www.fantasynamegenerators.com/car-names.php and pick 2 randomly for each instance.</para>
-        /// </summary>
-        public string Name { get; set; }
-
         public Car()
         {
-            Name = carNames[Race.rnd.Next(carNames.Count)];
+            Name = availableCarNames[Race.rnd.Next(availableCarNames.Count)];
             NormalSpeed = Race.rnd.Next(80, 110);
         }
 
-        private static List<string> carNames;
+        private static List<string> availableCarNames;
 
         public static void GetAvailableCarNames()
         {
-            carNames = new List<string>();
+            availableCarNames = new List<string>();
             using (StreamReader str = new StreamReader("CarNames.txt"))
             {
                 string line;
                 while ((line = str.ReadLine()) != null)
                 {
-                    carNames.Add(line);
+                    availableCarNames.Add(line);
                 }
             }
         }
 
         public void MoveForAnHour(Race race)
         {
-
+            this.DistanceTravelled += NormalSpeed;
         }
 
     }

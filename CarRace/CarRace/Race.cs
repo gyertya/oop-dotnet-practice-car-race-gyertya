@@ -43,7 +43,18 @@ namespace CarRace
         {
             for (int lap = 0; lap < 50; lap++)
             {
-                
+                foreach (var car in Cars)
+                {
+                    car.MoveForAnHour(this);
+                }
+                foreach (var motorcycle in Motorcycles)
+                {
+                    motorcycle.MoveForAnHour(this);
+                }
+                foreach (var truck in Trucks)
+                {
+                    truck.MoveForAnHour(this);
+                }
             }
 
         }
@@ -53,7 +64,53 @@ namespace CarRace
         /// </summary>
         private void PrintRaceResult()
         {
+            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
+            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
+            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
+            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
+            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
+            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
+            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
+            int bestDistance = -1;
+            Car bestCar = Cars[0];
 
+            foreach (var car in Cars)
+            {
+                car.StateToString();
+                if (car.DistanceTravelled>bestDistance)
+                {
+                    bestCar = car;
+                }
+            }
+
+            bestDistance = -1;
+            Motorcycle bestMotorcycle = Motorcycles[0];
+
+            foreach (var motorcycle in Motorcycles)
+            {
+                motorcycle.StateToString();
+                if (motorcycle.DistanceTravelled>bestDistance)
+                {
+                    bestMotorcycle = motorcycle;
+                }
+            }
+
+            bestDistance = -1;
+            Truck bestTruck = Trucks[0];
+            foreach (var truck in Trucks)
+            {
+                truck.StateToString();
+                if (truck.DistanceTravelled>bestDistance)
+                {
+                    bestTruck = truck;
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("And the winers are:");
+            bestCar.StateToString();
+            bestMotorcycle.StateToString();
+            bestTruck.StateToString();
         }
 
         static void Main(string[] args)
@@ -64,6 +121,9 @@ namespace CarRace
             Car.GetAvailableCarNames();
             race.CreateVehicles();
 
+            race.SimulateRace();
+
+            race.PrintRaceResult();
         }
     }
 }
