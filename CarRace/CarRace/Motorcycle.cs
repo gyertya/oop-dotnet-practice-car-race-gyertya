@@ -15,6 +15,7 @@ namespace CarRace
             NormalSpeed = (Weather.isRaining) ? 100 - Race.rnd.Next(5, 50) : 100;
             Name = "Motorcycle " + nameCount.ToString();
             nameCount++;
+            Type = "Motorcycle";
         }
 
         public void MoveForAnHour(Race race)

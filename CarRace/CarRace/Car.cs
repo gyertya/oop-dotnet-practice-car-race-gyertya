@@ -13,6 +13,7 @@ namespace CarRace
         {
             Name = availableCarNames[Race.rnd.Next(availableCarNames.Count)];
             NormalSpeed = Race.rnd.Next(80, 110);
+            Type = "Car";
         }
 
         private static List<string> availableCarNames;

@@ -14,6 +14,7 @@ namespace CarRace
         {
             NormalSpeed = 100;
             Name = Race.rnd.Next(0, 1000).ToString();
+            Type = "Truck";
         }
 
         public void MoveForAnHour(Race race)

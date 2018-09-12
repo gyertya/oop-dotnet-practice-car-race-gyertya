@@ -11,7 +11,7 @@ namespace CarRace
         public List<IVehicle> Cars { get; set; }
         public List<IVehicle> Motorcycles { get; set; }
         public List<IVehicle> Trucks { get; set; }
-        private List<List<IVehicle>> Vehicles { get; set; }
+        private List<List<IVehicle>> Vehicles { get; set; }  //It's a good practice?
 
         private const int numberOfVehiclesInEveryType = 10;
         public static Random rnd = new Random();
@@ -45,7 +45,7 @@ namespace CarRace
         /// - calling moveForAnHour() on every vehicle 50 times
         /// - setting whether its raining
         /// </summary>
-        private void SimulateRace(List<IVehicle> vehicles)
+        private void SimulateRace()
         {
             for (int lap = 0; lap < 50; lap++)
             {
@@ -65,28 +65,33 @@ namespace CarRace
         private void PrintRaceResult()
         {
             int bestDistance = -1;
-            List<IVehicle> bestVehicle = new List<IVehicle>();
+            List<IVehicle> bestVehicles = new List<IVehicle>();
             foreach (var vehicleType in Vehicles)
             {
-                bestVehicle.Add(vehicleType[0]);
+                bestVehicles.Add(vehicleType[0]);
                 foreach (var vehicle in vehicleType)
                 {
                     vehicle.StateToString();
-                    if (bestVehicle[bestVehicle.Count-1].DistanceTravelled > bestDistance)
+                    if (bestVehicles[bestVehicles.Count - 1].DistanceTravelled > bestDistance)
                     {
-                        bestVehicle[bestVehicle.Count-1] = vehicle;
+                        bestVehicles[bestVehicles.Count - 1] = vehicle;
                     }
                     bestDistance = -1;
                 }
             }
 
+            PrintWinners(bestVehicles);
+        }
 
+        private static void PrintWinners(List<IVehicle> bestVehicles)
+        {
             Console.WriteLine();
             Console.WriteLine("And the winers are:");
-            for (int i = 0; i < bestVehicle.Count; i++)
+            
+            foreach (var bestVehicle in bestVehicles)
             {
-                Console.WriteLine($"In category {i+1}, the winner is:");
-                Console.WriteLine($"\t {bestVehicle[i].Name}, distance travelled: {bestVehicle[i].DistanceTravelled}");
+                Console.WriteLine($"In category {bestVehicle.Type}, the winner is:");
+                Console.WriteLine($"\t {bestVehicle.Name}, distance travelled: {bestVehicle.DistanceTravelled}");
             }
         }
 
@@ -95,10 +100,12 @@ namespace CarRace
             Weather.SetRaining();
 
             var race = new Race();
-            Car.GetAvailableCarNames();
+
+            Car.GetAvailableCarNames(); //HOW Can I make it automaticall?
+
             race.CreateVehicles();
 
-            race.SimulateRace(new List<IVehicle>());
+            race.SimulateRace();
 
             race.PrintRaceResult();
         }
