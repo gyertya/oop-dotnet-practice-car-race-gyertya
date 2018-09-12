@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarRace
 {
-    class Car : Vehicle
+    class Car : Vehicle, IVehicle
     {
         public Car()
         {

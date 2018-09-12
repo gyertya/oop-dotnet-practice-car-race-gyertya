@@ -8,10 +8,12 @@ namespace CarRace
 {
     class Race
     {
-        public List<Car> Cars { get; set; }
-        public List<Motorcycle> Motorcycles { get; set; }
-        public List<Truck> Trucks { get; set; }
+        public List<IVehicle> Cars { get; set; }
+        public List<IVehicle> Motorcycles { get; set; }
+        public List<IVehicle> Trucks { get; set; }
+        private List<List<IVehicle>> Vehicles { get; set; }
 
+        private const int numberOfVehiclesInEveryType = 10;
         public static Random rnd = new Random();
 
         public bool IsThereABrokenTruck { get; set; }
@@ -21,17 +23,21 @@ namespace CarRace
         /// </summary>
         private void CreateVehicles()
         {
-            Cars = new List<Car>();
-            Motorcycles = new List<Motorcycle>();
-            Trucks = new List<Truck>();
+            Cars = new List<IVehicle>();
+            Motorcycles = new List<IVehicle>();
+            Trucks = new List<IVehicle>();
+            Vehicles = new List<List<IVehicle>>();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < numberOfVehiclesInEveryType; i++)
             {
                 Cars.Add(new Car());
                 Motorcycles.Add(new Motorcycle());
                 Trucks.Add(new Truck());
             }
 
+            Vehicles.Add(Cars);
+            Vehicles.Add(Motorcycles);
+            Vehicles.Add(Trucks);
         }
 
         /// <summary>
@@ -39,24 +45,18 @@ namespace CarRace
         /// - calling moveForAnHour() on every vehicle 50 times
         /// - setting whether its raining
         /// </summary>
-        private void SimulateRace()
+        private void SimulateRace(List<IVehicle> vehicles)
         {
             for (int lap = 0; lap < 50; lap++)
             {
-                foreach (var car in Cars)
+                for (int vehicle = 0; vehicle < numberOfVehiclesInEveryType; vehicle++)
                 {
-                    car.MoveForAnHour(this);
+                    Cars[vehicle].MoveForAnHour(this);
+                    Motorcycles[vehicle].MoveForAnHour(this);
+                    Trucks[vehicle].MoveForAnHour(this);
                 }
-                foreach (var motorcycle in Motorcycles)
-                {
-                    motorcycle.MoveForAnHour(this);
-                }
-                foreach (var truck in Trucks)
-                {
-                    truck.MoveForAnHour(this);
-                }
-            }
 
+            }
         }
 
         /// <summary>
@@ -64,53 +64,30 @@ namespace CarRace
         /// </summary>
         private void PrintRaceResult()
         {
-            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
-            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
-            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
-            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
-            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
-            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
-            //UGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLYUGLY
             int bestDistance = -1;
-            Car bestCar = Cars[0];
-
-            foreach (var car in Cars)
+            List<IVehicle> bestVehicle = new List<IVehicle>();
+            foreach (var vehicleType in Vehicles)
             {
-                car.StateToString();
-                if (car.DistanceTravelled>bestDistance)
+                bestVehicle.Add(vehicleType[0]);
+                foreach (var vehicle in vehicleType)
                 {
-                    bestCar = car;
+                    vehicle.StateToString();
+                    if (bestVehicle[bestVehicle.Count-1].DistanceTravelled > bestDistance)
+                    {
+                        bestVehicle[bestVehicle.Count-1] = vehicle;
+                    }
+                    bestDistance = -1;
                 }
             }
 
-            bestDistance = -1;
-            Motorcycle bestMotorcycle = Motorcycles[0];
-
-            foreach (var motorcycle in Motorcycles)
-            {
-                motorcycle.StateToString();
-                if (motorcycle.DistanceTravelled>bestDistance)
-                {
-                    bestMotorcycle = motorcycle;
-                }
-            }
-
-            bestDistance = -1;
-            Truck bestTruck = Trucks[0];
-            foreach (var truck in Trucks)
-            {
-                truck.StateToString();
-                if (truck.DistanceTravelled>bestDistance)
-                {
-                    bestTruck = truck;
-                }
-            }
 
             Console.WriteLine();
             Console.WriteLine("And the winers are:");
-            bestCar.StateToString();
-            bestMotorcycle.StateToString();
-            bestTruck.StateToString();
+            for (int i = 0; i < bestVehicle.Count; i++)
+            {
+                Console.WriteLine($"In category {i+1}, the winner is:");
+                Console.WriteLine($"\t {bestVehicle[i].Name}, distance travelled: {bestVehicle[i].DistanceTravelled}");
+            }
         }
 
         static void Main(string[] args)
@@ -121,7 +98,7 @@ namespace CarRace
             Car.GetAvailableCarNames();
             race.CreateVehicles();
 
-            race.SimulateRace();
+            race.SimulateRace(new List<IVehicle>());
 
             race.PrintRaceResult();
         }

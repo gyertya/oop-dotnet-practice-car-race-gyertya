@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRace
 {
-    class Truck : Vehicle
+    class Truck : Vehicle, IVehicle
     {
         public int BreakdownTurnsLeft { get; set; }
 

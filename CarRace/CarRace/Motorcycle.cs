@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRace
 {
-    class Motorcycle : Vehicle
+    class Motorcycle : Vehicle, IVehicle
     {
         private static int nameCount { get; set; } = 1;
 
