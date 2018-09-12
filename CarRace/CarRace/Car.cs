@@ -16,10 +16,10 @@ namespace CarRace
             Type = "Car";
         }
 
-        private static List<string> availableCarNames;
+        private static List<string> availableCarNames; 
 
         public static void GetAvailableCarNames()
-        {
+        { //TODO Automatically???
             availableCarNames = new List<string>();
             using (StreamReader str = new StreamReader("CarNames.txt"))
             {

@@ -8,7 +8,7 @@ namespace CarRace
 {
     class Truck : Vehicle, IVehicle
     {
-        public int BreakdownTurnsLeft { get; set; }
+        public int BreakdownTurnsLeft { get; set; } //TODO implement it somewhere!
 
         public Truck()
         {
@@ -24,7 +24,7 @@ namespace CarRace
                 DistanceTravelled += NormalSpeed;
             } else
             {
-                BreakdownTurnsLeft--;
+                BreakdownTurnsLeft--; //TODO implement breakdown!
             }
         }
     }

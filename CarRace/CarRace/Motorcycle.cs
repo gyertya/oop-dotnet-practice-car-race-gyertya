@@ -12,7 +12,7 @@ namespace CarRace
 
         public Motorcycle()
         {
-            NormalSpeed = (Weather.isRaining) ? 100 - Race.rnd.Next(5, 50) : 100;
+            NormalSpeed = (Weather.isRaining) ? 100 - Race.rnd.Next(5, 50) : 100; //TODO check it every lap, if needed!
             Name = "Motorcycle " + nameCount.ToString();
             nameCount++;
             Type = "Motorcycle";

@@ -15,7 +15,7 @@ namespace CarRace
 
         public static void SetRaining()
         {
-                isRaining = (Race.rnd.Next(0,100) > 30) ? false : true;
+                isRaining = (Race.rnd.Next(0,100) > 30) ? false : true; //TODO implement this method to every lap, not only race!
         }
 
     }

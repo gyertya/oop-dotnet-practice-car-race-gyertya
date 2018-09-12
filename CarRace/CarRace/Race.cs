@@ -11,7 +11,7 @@ namespace CarRace
         public List<IVehicle> Cars { get; set; }
         public List<IVehicle> Motorcycles { get; set; }
         public List<IVehicle> Trucks { get; set; }
-        private List<List<IVehicle>> Vehicles { get; set; }  //It's a good practice?
+        private List<List<IVehicle>> Vehicles { get; set; }  //TODO It's a good practice?
 
         private const int numberOfVehiclesInEveryType = 10;
         public static Random rnd = new Random();
@@ -79,7 +79,6 @@ namespace CarRace
                     bestDistance = -1;
                 }
             }
-
             PrintWinners(bestVehicles);
         }
 
@@ -99,9 +98,9 @@ namespace CarRace
         {
             Weather.SetRaining();
 
-            var race = new Race();
+            var race = new Race(); 
 
-            Car.GetAvailableCarNames(); //HOW Can I make it automaticall?
+            Car.GetAvailableCarNames(); //TODO How Can I make it automaticall?
 
             race.CreateVehicles();
 
